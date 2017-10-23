@@ -1,0 +1,433 @@
+-- phpMyAdmin SQL Dump
+-- version 4.5.1
+-- http://www.phpmyadmin.net
+--
+-- Host: 127.0.0.1
+-- Generation Time: Dec 01, 2016 at 06:21 PM
+-- Server version: 10.1.16-MariaDB
+-- PHP Version: 5.6.24
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `metro`
+--
+
+DELIMITER $$
+--
+-- Procedures
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `P1` (IN `SRC` VARCHAR(55), IN `DEST` VARCHAR(55), OUT `DIST` INT)  BEGIN
+ IF(DEST='A') THEN SELECT to1 FROM stations WHERE origin=SRC;
+ ELSEIF(DEST='B') THEN SELECT to2 FROM stations WHERE origin=SRC; 
+ELSEIF(DEST='C') THEN SELECT to3 FROM stations WHERE origin=SRC; 
+ELSEIF(DEST='D') THEN SELECT to4 FROM stations WHERE origin=SRC; 
+ELSEIF(DEST='E') THEN SELECT to5 FROM stations WHERE origin=SRC; 
+END IF;
+ END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `P2` (IN `SRC` VARCHAR(55), IN `DEST` VARCHAR(55), OUT `DIST` INT(55))  BEGIN
+IF(DEST='A')
+THEN 
+SELECT to1 FROM stations WHERE origin=SRC;
+ELSEIF(DEST='B')
+THEN 
+SELECT to2 FROM stations WHERE origin=SRC;
+ELSEIF(DEST='C')
+THEN 
+SELECT to3 FROM stations WHERE origin=SRC;
+ELSEIF(DEST='D')
+THEN 
+SELECT  to4 FROM stations WHERE origin=SRC;
+ELSEIF(DEST='E')
+THEN 
+SELECT to5 FROM stations WHERE origin=SRC;
+END IF;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `P3` (IN `SRC` VARCHAR(55), IN `DEST` VARCHAR(55), OUT `DIST` INT)  BEGIN IF(DEST='A') THEN SELECT to1 FROM stations WHERE origin=SRC; ELSEIF(DEST='B') THEN SELECT to2 FROM stations WHERE origin=SRC; ELSEIF(DEST='C') THEN SELECT to3 FROM stations WHERE origin=SRC; ELSEIF(DEST='D') THEN SELECT to4 FROM stations WHERE origin=SRC; ELSEIF(DEST='E') THEN SELECT to5 FROM stations WHERE origin=SRC; END IF; END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `p_station` (IN `SRC` VARCHAR(55), IN `DEST` VARCHAR(55), OUT `DIST` INT)  BEGIN
+ IF(DEST='Akshardham') THEN SELECT t1 into dist FROM station WHERE origin=SRC;
+ ELSEIF(DEST='Dwarka') THEN SELECT t2 into dist FROM station WHERE origin=SRC; 
+ELSEIF(DEST='Golf Course') THEN SELECT t3 into dist FROM station WHERE origin=SRC; 
+ELSEIF(DEST='INdraprastha') THEN SELECT t4 into dist FROM station WHERE origin=SRC; 
+ELSEIF(DEST='Karol Bagh') THEN SELECT t5 into dist FROM station WHERE origin=SRC;
+ELSEIF(DEST='Mandi House') THEN SELECT t6 into dist FROM station WHERE origin=SRC; 
+ELSEIF(DEST='Pragati Maidan') THEN SELECT t7 into dist FROM station WHERE origin=SRC; 
+ELSEIF(DEST='Rajouri Garden') THEN SELECT t8 into dist FROM station WHERE origin=SRC; 
+ELSEIF(DEST='Yamuna Bank') THEN SELECT t9 into dist FROM station WHERE origin=SRC; 
+END IF;
+END$$
+
+DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `dis`
+--
+
+CREATE TABLE `dis` (
+  `s1` varchar(2) NOT NULL,
+  `s2` varchar(2) NOT NULL,
+  `dist` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `dis`
+--
+
+INSERT INTO `dis` (`s1`, `s2`, `dist`) VALUES
+('a', 'b', 3),
+('b', 'c', 2),
+('c', 'd', 1),
+('d', 'e', 4),
+('e', 'f', 6);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `journey`
+--
+
+CREATE TABLE `journey` (
+  `src` varchar(30) NOT NULL,
+  `dest` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `journey`
+--
+
+INSERT INTO `journey` (`src`, `dest`) VALUES
+('76', '74'),
+('29', '76'),
+('29', '76'),
+('29', '7'),
+('66', '11');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `login`
+--
+
+CREATE TABLE `login` (
+  `mcn` varchar(30) NOT NULL,
+  `pwd` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `login`
+--
+
+INSERT INTO `login` (`mcn`, `pwd`) VALUES
+('', ''),
+('1001', '1001'),
+('1002', '1002'),
+('1003', '1003'),
+('1004', ''),
+('1005', '1005'),
+('1006', '1006'),
+('1007', '1007'),
+('1008', '1001'),
+('1009', '1009'),
+('1010', '1010'),
+('1011', '1011'),
+('1012', '1012'),
+('1013', '1013'),
+('1014', '1014'),
+('1015', '1015'),
+('1016', '1016'),
+('1017', '1017'),
+('1018', '1018'),
+('1019', '1019'),
+('1021', '1021'),
+('1020', '1020'),
+('1022', '1022');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `rides`
+--
+
+CREATE TABLE `rides` (
+  `mcn1` int(11) NOT NULL,
+  `user_name1` varchar(40) NOT NULL,
+  `frm1` varchar(40) NOT NULL,
+  `to1` varchar(40) NOT NULL,
+  `fare` decimal(10,2) NOT NULL DEFAULT '0.00',
+  `date1` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `rides`
+--
+
+INSERT INTO `rides` (`mcn1`, `user_name1`, `frm1`, `to1`, `fare`, `date1`) VALUES
+(1017, 'aaaaa', 'GOLF COURSE', 'AKSHARDHAM', '9.00', '2016-11-30 20:25:18'),
+(1017, 'aaaaa', 'INDRAPRASTHA', 'MANDI HOUSE', '7.20', '2016-11-30 20:25:28'),
+(1018, 'Rajat', 'AKSHARDHAM', 'DWARKA', '3.60', '2016-11-30 20:27:09'),
+(1018, 'Rajat', 'KAROL BAGH', 'MANDI HOUSE', '1.80', '2016-11-30 20:27:25'),
+(1019, 'Abhishek', 'INDRAPRASTHA', 'DWARKA', '9.00', '2016-11-30 20:29:22'),
+(1019, 'Abhishek', 'INDRAPRASTHA', 'DWARKA', '9.00', '2016-11-30 20:30:07'),
+(1017, 'aaaaa', 'GOLF COURSE', 'KAROL BAGH', '9.00', '2016-11-30 20:31:47'),
+(1017, 'aaaaa', 'DWARKA', 'PRAGATI MAIDAN', '19.80', '2016-11-30 20:31:57'),
+(1017, 'aaaaa', 'DWARKA', 'INDRAPRASTHA', '9.00', '2016-11-30 20:34:11'),
+(1009, 'rahul', 'GOLF COURSE', 'INDRAPRASTHA', '3.60', '2016-11-30 20:42:33'),
+(1009, 'rahul', 'KAROL BAGH', 'DWARKA', '14.40', '2016-11-30 20:44:34'),
+(1009, 'rahul', 'YAMUNA BANK', 'RAJOURI GARDEN', '9.00', '2016-11-30 20:44:42'),
+(1011, 'Sumit', 'DWARKA', 'GOLF COURSE', '5.40', '2016-11-30 20:48:22'),
+(1013, 'abhi', 'DWARKA', 'RAJOURI GARDEN', '27.00', '2016-11-30 20:49:53'),
+(1011, 'Sumit', 'MANDI HOUSE', 'INDRAPRASTHA', '7.20', '2016-11-30 20:56:19'),
+(1011, 'Sumit', 'DWARKA', 'KAROL BAGH', '14.40', '2016-11-30 22:14:23'),
+(1009, 'rahul', 'INDRAPRASTHA', 'KAROL BAGH', '5.40', '2016-11-30 22:20:44'),
+(1009, 'rahul', 'MANDI HOUSE', 'PRAGATI MAIDAN', '3.60', '2016-11-30 22:21:19'),
+(1010, 'Sachin ', 'DWARKA', 'MANDI HOUSE', '16.20', '2016-11-30 23:16:16'),
+(1010, 'Sachin ', 'YAMUNA BANK', 'GOLF COURSE', '30.60', '2016-11-30 23:16:25'),
+(1017, 'aaaaa', 'DWARKA', 'INDRAPRASTHA', '9.00', '2016-11-30 23:23:17'),
+(1003, 'Sarthak', 'GOLF COURSE', 'MANDI HOUSE', '10.80', '2016-11-30 23:25:17'),
+(1003, 'Sarthak', 'PRAGATI MAIDAN', 'YAMUNA BANK', '16.20', '2016-11-30 23:25:28'),
+(1003, 'Sarthak', 'PRAGATI MAIDAN', 'YAMUNA BANK', '16.20', '2016-11-30 23:30:49'),
+(1022, 'Sonam', 'AKSHARDHAM', 'DWARKA', '3.60', '2016-12-01 01:16:32'),
+(1022, 'Sonam', 'AKSHARDHAM', 'DWARKA', '3.60', '2016-12-01 01:16:46'),
+(1022, 'Sonam', 'AKSHARDHAM', 'DWARKA', '3.60', '2016-12-01 01:16:59'),
+(1022, 'Sonam', 'AKSHARDHAM', 'DWARKA', '3.60', '2016-12-01 01:17:20'),
+(1022, 'Sonam', 'AKSHARDHAM', 'DWARKA', '3.60', '2016-12-01 01:17:49'),
+(1022, 'Sonam', 'AKSHARDHAM', 'YAMUNA BANK', '39.60', '2016-12-01 01:36:48'),
+(1022, 'Sonam', 'AKSHARDHAM', 'YAMUNA BANK', '39.60', '2016-12-01 01:36:53'),
+(1022, 'Sonam', 'AKSHARDHAM', 'YAMUNA BANK', '39.60', '2016-12-01 01:36:59'),
+(1022, 'Sonam', 'AKSHARDHAM', 'YAMUNA BANK', '39.60', '2016-12-01 01:37:02'),
+(1022, 'Sonam', 'AKSHARDHAM', 'YAMUNA BANK', '39.60', '2016-12-01 01:37:04'),
+(1022, 'Sonam', 'AKSHARDHAM', 'YAMUNA BANK', '39.60', '2016-12-01 01:37:06'),
+(1012, 'Aman', 'AKSHARDHAM', 'YAMUNA BANK', '39.60', '2016-12-01 01:38:56'),
+(1012, 'Aman', 'AKSHARDHAM', 'YAMUNA BANK', '39.60', '2016-12-01 01:39:03'),
+(1012, 'Aman', 'AKSHARDHAM', 'YAMUNA BANK', '39.60', '2016-12-01 01:39:07'),
+(1021, 'Nikhil', 'AKSHARDHAM', 'YAMUNA BANK', '39.60', '2016-12-01 01:40:50'),
+(1021, 'Nikhil', 'AKSHARDHAM', 'YAMUNA BANK', '39.60', '2016-12-01 01:41:00'),
+(1021, 'Nikhil', 'AKSHARDHAM', 'YAMUNA BANK', '39.60', '2016-12-01 01:41:05'),
+(1021, 'Nikhil', 'AKSHARDHAM', 'YAMUNA BANK', '39.60', '2016-12-01 01:41:08'),
+(1021, 'Nikhil', 'AKSHARDHAM', 'YAMUNA BANK', '39.60', '2016-12-01 01:41:15'),
+(1021, 'Nikhil', 'AKSHARDHAM', 'YAMUNA BANK', '39.60', '2016-12-01 01:41:22'),
+(1021, 'Nikhil', 'AKSHARDHAM', 'YAMUNA BANK', '39.60', '2016-12-01 02:11:25'),
+(1021, 'Nikhil', 'AKSHARDHAM', 'YAMUNA BANK', '39.60', '2016-12-01 02:11:30'),
+(1021, 'Nikhil', 'AKSHARDHAM', 'YAMUNA BANK', '39.60', '2016-12-01 02:11:33'),
+(1021, 'Nikhil', 'AKSHARDHAM', 'YAMUNA BANK', '39.60', '2016-12-01 02:11:36'),
+(1021, 'Nikhil', 'AKSHARDHAM', 'YAMUNA BANK', '39.60', '2016-12-01 02:11:37'),
+(1021, 'Nikhil', 'AKSHARDHAM', 'YAMUNA BANK', '39.60', '2016-12-01 02:11:38'),
+(1021, 'Nikhil', 'AKSHARDHAM', 'YAMUNA BANK', '39.60', '2016-12-01 02:11:40'),
+(1021, 'Nikhil', 'AKSHARDHAM', 'YAMUNA BANK', '39.60', '2016-12-01 02:11:43'),
+(1021, 'Nikhil', 'AKSHARDHAM', 'YAMUNA BANK', '39.60', '2016-12-01 02:11:45'),
+(1021, 'Nikhil', 'AKSHARDHAM', 'YAMUNA BANK', '39.60', '2016-12-01 02:11:46'),
+(1021, 'Nikhil', 'AKSHARDHAM', 'YAMUNA BANK', '39.60', '2016-12-01 02:11:48'),
+(1021, 'Nikhil', 'AKSHARDHAM', 'YAMUNA BANK', '39.60', '2016-12-01 02:11:49'),
+(1021, 'Nikhil', 'AKSHARDHAM', 'YAMUNA BANK', '39.60', '2016-12-01 02:11:54'),
+(1021, 'Nikhil', 'AKSHARDHAM', 'YAMUNA BANK', '39.60', '2016-12-01 02:11:55'),
+(1021, 'Nikhil', 'AKSHARDHAM', 'YAMUNA BANK', '39.60', '2016-12-01 02:11:57'),
+(1018, 'Rajat', 'INDRAPRASTHA', 'RAJOURI GARDEN', '18.00', '2016-12-01 19:06:48'),
+(1021, 'Nikhil', 'GOLF COURSE', 'MANDI HOUSE', '10.80', '2016-12-01 21:23:40');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `signup`
+--
+
+CREATE TABLE `signup` (
+  `fname` varchar(20) NOT NULL,
+  `lname` varchar(20) NOT NULL,
+  `mcn` varchar(20) NOT NULL,
+  `mb_no` varchar(10) NOT NULL,
+  `email` varchar(55) NOT NULL,
+  `pwd` int(30) NOT NULL,
+  `balance` decimal(10,2) NOT NULL DEFAULT '250.00'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `signup`
+--
+
+INSERT INTO `signup` (`fname`, `lname`, `mcn`, `mb_no`, `email`, `pwd`, `balance`) VALUES
+('Sukrit ', '', '1001', '1111111111', '0', 1001, '250.00'),
+('Abhay', '', '1002', '1110909299', '0', 1002, '400.00'),
+('Sarthak', 'Mehta', '1003', '2424545454', '0', 1003, '806.80'),
+('Nishu', 'Gulani', '1004', '8973874827', '0', 0, '250.00'),
+('MS', 'Dhoni', '1005', '8989898988', '0', 1005, '250.00'),
+('Aman ', 'Tiwari', '1006', '7879878788', '0', 1006, '250.00'),
+('D', 'abab', '1007', '789787888', '0', 1007, '250.00'),
+('Virat', 'Kohli', '1008', '9090090900', '0', 1008, '250.00'),
+('rahul', 'ag', '1009', '99010', '0', 1009, '1541.60'),
+('Sachin ', 'Tendulkar', '1010', '9090909090', '0', 1010, '306.20'),
+('Sumit', 'Anand', '1011', '9090977777', '0', 1011, '924.20'),
+('Aman', 'Gupta', '1012', '9090987777', '0', 1012, '500.20'),
+('abhi', 'aa', '1013', '9090988888', '0', 1013, '630.00'),
+('Sarthak', 'Mehta', '1014', '9088888888', '0', 0, '250.00'),
+('Kumar', 'Priyam', '1015', '9033445567', '0', 1015, '912.20'),
+('Aman', 'Tiwari', '1016', '9987766644', '0', 1016, '142.00'),
+('aaaaa', 'ddd', '1017', '99090', '0', 1017, '1939.40'),
+('Rajat', 'Gupta', '1018', '8880898908', '0', 1018, '1064.80'),
+('Abhishek', 'kumar', '1019', '0900900009', 'se@lll.com', 1012, '489.00'),
+('Nikhil', 'Nayak', '1021', '1227122222', 'sssss@s.com', 1234, '307.60'),
+('Sonam', 'gupta', '1020', '9090909090', 'sd@j.com', 1020, '250.00'),
+('Sonam', 'Gupta2', '1022', '9999090900', 'ww@kl.com', 1022, '-5.60');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `station`
+--
+
+CREATE TABLE `station` (
+  `origin` varchar(30) DEFAULT NULL,
+  `t1` varchar(55) DEFAULT NULL,
+  `t2` varchar(55) DEFAULT NULL,
+  `t3` varchar(55) DEFAULT NULL,
+  `t4` varchar(55) DEFAULT NULL,
+  `t5` varchar(55) DEFAULT NULL,
+  `t6` varchar(55) DEFAULT NULL,
+  `t7` varchar(55) DEFAULT NULL,
+  `t8` varchar(55) DEFAULT NULL,
+  `t9` varchar(55) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `station`
+--
+
+INSERT INTO `station` (`origin`, `t1`, `t2`, `t3`, `t4`, `t5`, `t6`, `t7`, `t8`, `t9`) VALUES
+('Akshardham', '0', '2', '5', '7', '10', '11', '13', '17', '22'),
+('Dwarka', '2', '0', '3', '5', '8', '9', '11', '15', '20'),
+('GOlf Course', '5', '3', '0', '2', '5', '6', '8', '12', '17'),
+('Indraprastha', '7', '5', '2', '0', '3', '4', '6', '10', '15'),
+('Karol Bagh', '10', '8', '5', '3', '0', '1', '3', '7', '12'),
+('Mandi House', '11', '9', '6', '4', '1', '0', '2', '15', '20'),
+('Pragati Maidan', '13', '11', '8', '6', '3', '2', '0', '4', '9'),
+('Rajouri Garden', '17', '15', '12', '10', '7', '15', '4', '0', '5'),
+('Yamuna Bank', '22', '20', '17', '15', '12', '20', '9', '5', '0');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `t1`
+--
+
+CREATE TABLE `t1` (
+  `username` varchar(60) DEFAULT NULL,
+  `email` varchar(55) DEFAULT NULL,
+  `pword` varchar(55) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `t2`
+--
+
+CREATE TABLE `t2` (
+  `fname` varchar(55) DEFAULT NULL,
+  `lname` varchar(55) DEFAULT NULL,
+  `email` varchar(55) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `t2`
+--
+
+INSERT INTO `t2` (`fname`, `lname`, `email`) VALUES
+('Rahul', 'Agg.', 'agg'),
+('Sachin', 'Tendulkar', 'srt@rediffmail.com'),
+('Achintya', 'Sharma', 'Ach@gmail.com'),
+('Achintya', 'Sharma', 'Ach@gmail.com'),
+('Aanchal ', 'Gupta', 'nikhil_yeee@gmail.com'),
+('Aanchal ', 'Gupta', 'nikhil_yeee@gmail.com'),
+('MS', 'Dhoni', 'ms_dhoni@gmail.com'),
+('MS', 'Dhoni', 'ms_dhoni@gmail.com'),
+('MS', 'Dhoni', 'ms_dhoni@gmail.com'),
+('aaaa', 'bbbb@gmail', 'a3'),
+('aaaa', 'bbbb@gmail', 'a3'),
+('MS', 'ms_dhoni@gmail.com', '1234'),
+('MS', 'ms_dhoni@gmail.com', '1234'),
+('MS', 'ms_dhoni@gmail.com', '1234'),
+('', '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `t3`
+--
+
+CREATE TABLE `t3` (
+  `fname` varchar(55) DEFAULT NULL,
+  `email` varchar(55) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `t3`
+--
+
+INSERT INTO `t3` (`fname`, `email`) VALUES
+('bb', 'tt');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `t4`
+--
+
+CREATE TABLE `t4` (
+  `name` varchar(55) DEFAULT NULL,
+  `email` varchar(55) DEFAULT NULL,
+  `op` varchar(55) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `t4`
+--
+
+INSERT INTO `t4` (`name`, `email`, `op`) VALUES
+('qwe', 'rrrrr', ''),
+('su', '', ''),
+('abbbb', 'nnnn', 'jkhjkhkh'),
+('abbbb', 'nnnn', 'jkhjkhkh'),
+('', '', ''),
+('a1', 'a2', 'a3'),
+('abc', 'abc', 'abvc'),
+('', '', ''),
+('qqqq', 'wwww', 'eeee'),
+('mmmmmmm', 'jjjjjjjjj', 'uuuuuuuuuu');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_data`
+--
+
+CREATE TABLE `user_data` (
+  `fname` varchar(55) DEFAULT NULL,
+  `lname` varchar(55) DEFAULT NULL,
+  `mcn` varchar(55) DEFAULT NULL,
+  `mb_no` varchar(55) DEFAULT NULL,
+  `email` varchar(55) DEFAULT NULL,
+  `pwd` varchar(55) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `user_data`
+--
+
+INSERT INTO `user_data` (`fname`, `lname`, `mcn`, `mb_no`, `email`, `pwd`) VALUES
+('Sukrit', 'Mehta', 'SM112233', '8800942012', 'sukrit@gmail.com', 'qwert'),
+('Sukrit', 'Mehta', '55667722', '8800942012', 'sukritmehta24@gmail.com', 'qwer');
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
